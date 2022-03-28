@@ -9,14 +9,13 @@ const ContactItem = ({ contact, formOffsetTop }) => {
 
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
-  const { id, name, email, phone, type } = contact;
+  const { _id, name, email, phone, type } = contact;
 
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure?');
 
     if (confirmation) {
-      deleteContact(id);
-
+      deleteContact(_id);
       clearCurrent();
     }
   };
