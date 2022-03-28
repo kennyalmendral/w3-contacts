@@ -63,9 +63,9 @@ const ContactForm = ({ setFormOffsetTop }) => {
   return (
     <>
       <form ref={formEl} onSubmit={onSubmit}>
-        <div className="card shadow-sm">
+        <div className="card">
           <div className="card-header">
-            <h4 className="mb-0 text-secondary">{current ? 'Edit' : 'Add'} contact</h4>
+            <h5 className="mb-0 text-secondary">{current ? 'Edit' : 'Add'} contact</h5>
           </div>
 
           <div className="card-body pb-2">

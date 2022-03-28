@@ -2,9 +2,9 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className="card shadow-sm">
+    <div className="card">
       <div className="card-header">
-        <h4 className="mb-0 text-secondary">About W3Contacts</h4>
+        <h5 className="mb-0 text-secondary">About W3Contacts</h5>
       </div>
 
       <div className="card-body">

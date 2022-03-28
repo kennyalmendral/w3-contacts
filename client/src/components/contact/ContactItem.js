@@ -23,7 +23,7 @@ const ContactItem = ({ contact, formOffsetTop }) => {
 
   return (
     <>
-      <div className="card shadow-sm mb-3">
+      <div className="card mb-3">
         <div className="card-header">
           <h3 className="h6 mb-0 text-secondary text-left d-flex justify-content-between align-items-center">
             <strong>{name}</strong>
@@ -48,9 +48,9 @@ const ContactItem = ({ contact, formOffsetTop }) => {
               top: formOffsetTop,
               behavior: 'smooth'
             });
-          }}><i className="fa fa-pencil"></i> Edit</button>
+          }}><i className="fa fa-pencil"></i></button>
           
-          <button className="btn btn-sm btn-danger" onClick={onDelete}><i className="fa fa-trash"></i> Delete</button>
+          <button className="btn btn-sm btn-danger" onClick={onDelete}><i className="fa fa-trash"></i></button>
         </div>
       </div>
     </>

@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
+import AuthContext from '../../context/auth/AuthContext';
+
 const Navbar = ({ title, icon }) => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, logout, user } = authContext;
+
+  const logoutUser = () => {
+    logout();
+  };
+
+  const authLinks = (
+    <>
+      <li><span className="nav-link text-white">{user && user.name}</span></li>
+      <li><a href="#!" className="nav-link text-white" onClick={logoutUser}>Logout</a></li>
+    </>
+  );
+
+  const guestLinks = (
+    <>
+      <li><Link to="/login" className="nav-link text-white">Login</Link></li>
+      <li><Link to="/register" className="nav-link text-white">Register</Link></li>
+    </>
+  );
+
   return (
     <header className="mb-4">
       <div className="px-3 py-3 bg-primary text-white">
@@ -14,9 +39,7 @@ const Navbar = ({ title, icon }) => {
             </a>
 
             <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-              {/* <li><Link to="/" className="nav-link text-secondary">Home</Link></li> */}
-              <li><Link to="/" className="nav-link text-white">Home</Link></li>
-              <li><Link to="/about" className="nav-link text-white">About</Link></li>
+              {isAuthenticated ? authLinks : guestLinks}
             </ul>
           </div>
         </div>
