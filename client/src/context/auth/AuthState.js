@@ -27,8 +27,7 @@ export const getUser = async (dispatch) => {
       payload: res.data
     });
   } catch (error) {
-    console.log(error);
-    // dispatch({ type: AUTH_ERROR });
+    dispatch({ type: AUTH_ERROR });
   }
 };
 

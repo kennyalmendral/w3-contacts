@@ -24,12 +24,7 @@ const ContactForm = ({ setFormOffsetTop }) => {
     if (current !== null) {
       setContact(current);
     } else {
-      setContact({
-        name: '',
-        email: '',
-        phone: '',
-        type: 'personal'
-      });
+      resetForm();
     }
   }, [current]);
 
@@ -48,6 +43,8 @@ const ContactForm = ({ setFormOffsetTop }) => {
       updateContact(contact);
     }
 
+    clearCurrent();
+
     resetForm();
 
     window.scrollTo({
@@ -57,7 +54,12 @@ const ContactForm = ({ setFormOffsetTop }) => {
   };
 
   const resetForm = () => {
-    clearCurrent();
+    setContact({
+      name: '',
+      email: '',
+      phone: '',
+      type: 'personal'
+    });
   };
 
   return (
