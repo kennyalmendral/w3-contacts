@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://w3contacts_admin:nfs2se@w3contacts.4npfo.mongodb.net/w3contacts?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
