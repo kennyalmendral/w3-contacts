@@ -8,6 +8,8 @@ import AuthContext from '../../context/auth/AuthContext';
 
 import ContactContext from '../../context/contact/ContactContext';
 
+import logo from '../../../src/logo.png';
+
 const Navbar = ({ title, icon }) => {
   const authContext = useContext(AuthContext);
 
@@ -42,7 +44,7 @@ const Navbar = ({ title, icon }) => {
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-              <h1 className="h3 mb-0"><i className={icon} /><span className="ps-2">{title}</span></h1>
+              <h1 className="h3 mb-0 d-flex"><img src={logo} alt={title} height={30} />{' '}<span className="ps-2">{title}</span></h1>
             </a>
 
             <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
