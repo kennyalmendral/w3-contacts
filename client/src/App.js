@@ -38,6 +38,12 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
               </Routes>
             </div>
+
+            <div className="bg-light text-center mt-3 py-4">
+              <div className="container">
+                <p className="m-0 text-muted"><i className="fa fa-github"></i> <strong>Version: 1.0.0</strong> by <a href="https://github.com/kennyalmendral/w3contacts" className="text-decoration-none" target="_blank" rel="noreferrer">Kenny Almendral</a></p>
+              </div>
+            </div>
           </Router>
         </AlertState>
       </ContactState>

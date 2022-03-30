@@ -57,7 +57,7 @@ const Register = props => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="auth-form">
       <div className="card">
         <div className="card-header">
           <h5 className="mb-0 text-secondary">Create an account</h5>

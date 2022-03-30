@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="auth-form">
       <div className="card">
         <div className="card-header">
           <h5 className="mb-0 text-secondary">Login to your account</h5>
