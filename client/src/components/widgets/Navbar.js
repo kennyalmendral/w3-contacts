@@ -1,27 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-import AuthContext from '../../context/auth/AuthContext';
+import { useAuth, logout } from '../../context/auth/AuthState';
 
-import ContactContext from '../../context/contact/ContactContext';
+import { useContacts, clearContacts } from '../../context/contact/ContactState';
 
 import logo from '../../../src/logo.png';
 
 const Navbar = ({ title, icon }) => {
-  const authContext = useContext(AuthContext);
+  const [authState, authDispatch] = useAuth();
 
-  const { isAuthenticated, logout, user } = authContext;
+  const { isAuthenticated, user } = authState;
 
-  const contactContext = useContext(ContactContext);
-
-  const { clearContacts } =  contactContext;
+  const contactDispatch = useContacts()[1];
 
   const logoutUser = () => {
-    logout();
-    clearContacts();
+    logout(authDispatch);
+
+    clearContacts(contactDispatch);
   };
 
   const authLinks = (

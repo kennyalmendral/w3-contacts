@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { Navigate } from 'react-router-dom';
 
 import Spinner from '../widgets/Spinner';
 
-import AuthContext from '../../context/auth/AuthContext';
+import { useAuth } from '../../context/auth/AuthState';
 
 const PrivateRoute = ({ component: Component }) => {
-  const authContext = useContext(AuthContext);
+  const [authState] = useAuth();
   
-  const { isAuthenticated, loading } = authContext;
+  const { isAuthenticated, loading } = authState;
 
   if (loading) return <Spinner />;
 

@@ -39,6 +39,12 @@ router.post('/', [auth, [
   const { name, email, phone, type } = req.body;
 
   try {
+    let contactExists = await Contact.findOne({ phone: phone });
+
+    if (contactExists) {
+      return res.status(400).json({ message: 'Phone number already exists.' });
+    }
+
     const newContact = new Contact({
       name,
       email,
@@ -84,7 +90,7 @@ router.put('/:id', auth, async (req, res) => {
     let contact = await Contact.findById(req.params.id);
 
     if (!contact) {
-      return res.status(404).json({ message: 'Contact not found' });
+      return res.status(404).json({ message: 'Contact not found.' });
     }
 
     if (contact.user.toString() !== req.user.id) {
@@ -113,7 +119,7 @@ router.delete('/:id', auth, async (req, res) => {
     let contact = await Contact.findById(req.params.id);
 
     if (!contact) {
-      return res.status(404).json({ message: 'Contact not found' });
+      return res.status(404).json({ message: 'Contact not found.' });
     }
 
     if (contact.user.toString() !== req.user.id) {

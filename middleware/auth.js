@@ -16,7 +16,7 @@ module.exports = function (req, res, next) {
     req.user = jwtToken.user;
 
     next();
-  } catch (err) {
+  } catch (error) {
     return res.status(401).json({
       message: 'Invalid token'
     });

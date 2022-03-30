@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../context/auth/AuthContext';
-
 import AlertContext from '../../context/alert/AlertContext';
+
+import { useAuth, clearErrors, login } from '../../context/auth/AuthState';
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -14,9 +14,9 @@ const Login = () => {
 
   const { email, password } = user;
 
-  const authContext = useContext(AuthContext);
+  const [authState, authDispatch] = useAuth();
 
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { error, isAuthenticated } = authState;
 
   const alertContext = useContext(AlertContext);
 
@@ -24,17 +24,17 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
-    }
+  if (isAuthenticated) {
+    navigate('/');
+  }
 
+  useEffect(() => {
     if (error === 'Invalid credentials') {
       setAlert(error, 'danger');
-
-      clearErrors();
+      
+      clearErrors(authDispatch);
     }
-  }, [navigate, error, isAuthenticated, setAlert, clearErrors]);
+  }, [error, isAuthenticated, authDispatch, setAlert]);
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -44,7 +44,7 @@ const Login = () => {
     if (email === '' || password === '') {
       setAlert('All fields are required.', 'danger');
     } else {
-      login({
+      login(authDispatch, {
         email,
         password
       });

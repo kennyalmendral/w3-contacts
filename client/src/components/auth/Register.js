@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import AuthContext from '../../context/auth/AuthContext';
-
 import AlertContext from '../../context/alert/AlertContext';
 
-const Register = () => {
+import { useAuth, clearErrors, register } from '../../context/auth/AuthState';
+
+const Register = props => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -16,9 +16,9 @@ const Register = () => {
 
   const { name, email, password, password_confirmation } = user;
 
-  const authContext = useContext(AuthContext);
+  const [authState, authDispatch] = useAuth();
 
-  const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { error, isAuthenticated } = authState;
 
   const alertContext = useContext(AlertContext);
 
@@ -26,17 +26,17 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
-    }
+  if (isAuthenticated) {
+    navigate('/');
+  }
 
+  useEffect(() => {
     if (error === 'User already exists.') {
       setAlert(error, 'danger');
 
-      clearErrors();
+      clearErrors(authDispatch);
     }
-  }, [navigate, error, isAuthenticated, setAlert, clearErrors]);
+  }, [error, isAuthenticated, props.history, setAlert, authDispatch]);
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 

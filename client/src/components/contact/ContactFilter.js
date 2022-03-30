@@ -1,32 +1,25 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React from 'react';
 
-import ContactContext from '../../context/contact/ContactContext';
+import {
+  useContacts,
+  filterContacts,
+  clearFilter
+} from '../../context/contact/ContactState';
 
 const ContactFilter = () => {
-  const contactContext = useContext(ContactContext);
-
-  const { filterContacts, clearFilter, filtered } = contactContext;
-
-  const inputEl = useRef(null);
-
-  useEffect(() => {
-    if (filtered === null) {
-      inputEl.current.value = null;
-    }
-  }, [filtered]);
+  const contactDispatch = useContacts()[1];
 
   const onChange = e => {
-    if (inputEl.current.value !== null) {
-      filterContacts(e.target.value);
+    if (e.target.value !== '') {
+      filterContacts(contactDispatch, e.target.value);
     } else {
-      clearFilter();
+      clearFilter(contactDispatch);
     }
   };
 
   return (
-    <form className="mb-4">
+    <form className="mb-4" onSubmit={e => e.preventDefault()}>
       <input 
-        ref={inputEl} 
         type="text" 
         placeholder="Filter contacts by name, email address, phone number or type" 
         className="form-control" 

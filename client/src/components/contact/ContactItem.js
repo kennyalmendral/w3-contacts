@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import ContactContext from '../../context/contact/ContactContext';
+import {
+  useContacts,
+  deleteContact,
+  setCurrent,
+  clearCurrent
+} from '../../context/contact/ContactState';
 
 const ContactItem = ({ contact, formOffsetTop }) => {
-  const contactContext = useContext(ContactContext);
-
-  const { deleteContact, setCurrent, clearCurrent } = contactContext;
+  const contactDispatch = useContacts()[1];
 
   const { _id, name, email, phone, type } = contact;
 
@@ -15,8 +18,9 @@ const ContactItem = ({ contact, formOffsetTop }) => {
     const confirmation = window.confirm('Are you sure?');
 
     if (confirmation) {
-      deleteContact(_id);
-      clearCurrent();
+      deleteContact(contactDispatch, _id);
+
+      clearCurrent(contactDispatch);
     }
   };
 
@@ -41,7 +45,7 @@ const ContactItem = ({ contact, formOffsetTop }) => {
 
         <div className="card-footer d-flex justify-content-end">
           <button className="btn btn-sm btn-primary me-2" onClick={() => {
-            setCurrent(contact);
+            setCurrent(contactDispatch, contact);
 
             window.scrollTo({
               top: formOffsetTop,

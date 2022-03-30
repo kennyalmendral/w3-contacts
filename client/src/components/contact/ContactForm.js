@@ -1,22 +1,29 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import ContactContext from '../../context/contact/ContactContext';
+import {
+  addContact,
+  useContacts,
+  updateContact,
+  clearCurrent
+} from '../../context/contact/ContactState';
+
+const initialContact = {
+  name: '',
+  email: '',
+  phone: '',
+  type: 'personal'
+};
 
 const ContactForm = ({ setFormOffsetTop }) => {
-  const contactContext = useContext(ContactContext);
+  const [contactState, contactDispatch] = useContacts();
 
-  const { addContact, updateContact, current, clearCurrent } = contactContext;
+  const { current } = contactState;
 
   const formEl = useRef(null);
 
-  const [contact, setContact] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    type: 'personal'
-  });
+  const [contact, setContact] = useState(initialContact);
 
   const { name, email, phone, type } = contact;
 
@@ -38,12 +45,14 @@ const ContactForm = ({ setFormOffsetTop }) => {
     e.preventDefault();
 
     if (current === null) {
-      addContact(contact);
+      addContact(contactDispatch, contact).then(() =>
+        setContact(initialContact)
+      );
     } else {
-      updateContact(contact);
+      updateContact(contactDispatch, contact);
     }
 
-    clearCurrent();
+    clearCurrent(contactDispatch);
 
     resetForm();
 
@@ -54,12 +63,7 @@ const ContactForm = ({ setFormOffsetTop }) => {
   };
 
   const resetForm = () => {
-    setContact({
-      name: '',
-      email: '',
-      phone: '',
-      type: 'personal'
-    });
+    setContact(initialContact);
   };
 
   return (

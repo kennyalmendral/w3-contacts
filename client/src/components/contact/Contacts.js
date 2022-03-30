@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import ContactContext from '../../context/contact/ContactContext';
+import { useContacts, getContacts } from '../../context/contact/ContactState';
 
 import ContactItem from './ContactItem';
 import ContactFilter from './ContactFilter';
@@ -12,46 +12,43 @@ import ContactFilter from './ContactFilter';
 import Spinner from '../widgets/Spinner';
 
 const Contacts = ({ formOffsetTop }) => {
-  const contactContext = useContext(ContactContext);
+  const [contactState, contactDispatch] = useContacts();
 
-  const { contacts, filtered, getContacts, loading } = contactContext;
+  const { contacts, filtered } = contactState;
 
   useEffect(() => {
-    getContacts();
-    // eslint-disable-next-line
-  }, []);
+    getContacts(contactDispatch);
+  }, [contactDispatch]);
 
   return (
     <>
       <h4 className="mb-3">Contacts</h4>
-
-      {contacts === null && <div className="alert alert-info mb-4">There are no contacts found.</div>}
       
-      {contacts !== null && (
-        <>
-          <ContactFilter />
+      <div className="mb-4">
+        {(contacts !== null) ? (
+          <>
+            {contacts.length > 0 && <ContactFilter />}
 
-          <div className="mb-4">
-            {(contacts !== null && !loading) ? (
-              <TransitionGroup>
-                {filtered !== null ? (
-                  filtered.map(contact => (
-                    <CSSTransition key={contact._id} timeout={250} classNames="item">
-                      <ContactItem contact={contact} formOffsetTop={formOffsetTop} />
-                    </CSSTransition>
-                  ))
-                ) : (
-                  contacts.map(contact => (
-                    <CSSTransition key={contact._id} timeout={250} classNames="item">
-                      <ContactItem contact={contact} formOffsetTop={formOffsetTop} />
-                    </CSSTransition>
-                  ))
-                )}
-              </TransitionGroup>
-            ) : <Spinner />}
-          </div>
-        </>
-      )}
+            {contacts.length === 0 && <div className="alert alert-info mb-4">There are no contacts found.</div>}
+          
+            <TransitionGroup>
+              {filtered !== null ? (
+                filtered.map(contact => (
+                  <CSSTransition key={contact._id} timeout={250} classNames="item">
+                    <ContactItem contact={contact} formOffsetTop={formOffsetTop} />
+                  </CSSTransition>
+                ))
+              ) : (
+                contacts.map(contact => (
+                  <CSSTransition key={contact._id} timeout={250} classNames="item">
+                    <ContactItem contact={contact} formOffsetTop={formOffsetTop} />
+                  </CSSTransition>
+                ))
+              )}
+            </TransitionGroup>
+          </>
+        ) : <Spinner />}
+      </div>
     </>
   );
 };

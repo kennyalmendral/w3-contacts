@@ -20,8 +20,6 @@ const AuthReducer = (state, action) => {
       };
     case LOGIN_SUCCESS:      
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
-
       return {
         ...state,
         ...action.payload,
@@ -32,8 +30,6 @@ const AuthReducer = (state, action) => {
     case REGISTER_FAIL:
     case LOGOUT:
     case AUTH_ERROR:
-      localStorage.removeItem('token');
-
       return {
         ...state,
         token: null,
@@ -48,7 +44,7 @@ const AuthReducer = (state, action) => {
         error: null
       };
     default:
-      return state;
+      throw new Error(`Unsupported type: ${action.type}`);
   };
 };
 
