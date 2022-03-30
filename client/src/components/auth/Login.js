@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet';
+
 import AlertContext from '../../context/alert/AlertContext';
 
 import { useAuth, clearErrors, login } from '../../context/auth/AuthState';
@@ -52,47 +54,53 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="auth-form">
-      <div className="card">
-        <div className="card-header">
-          <h5 className="mb-0 text-secondary">Login to your account</h5>
-        </div>
+    <>
+      <Helmet>
+        <title>Login | W3Contacts</title>
+      </Helmet>
 
-        <div className="card-body">
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email address</label>
-
-            <input 
-              type="email" 
-              name="email" 
-              id="email" 
-              className="form-control" 
-              value={email} 
-              onChange={onChange} 
-              required 
-            />
+      <form onSubmit={onSubmit} className="auth-form">
+        <div className="card">
+          <div className="card-header">
+            <h5 className="mb-0 text-secondary">Login to your account</h5>
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
+          <div className="card-body">
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email address</label>
 
-            <input 
-              type="password" 
-              name="password" 
-              id="password" 
-              className="form-control" 
-              value={password} 
-              onChange={onChange} 
-              required 
-            />
+              <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                className="form-control" 
+                value={email} 
+                onChange={onChange} 
+                required 
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+
+              <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                className="form-control" 
+                value={password} 
+                onChange={onChange} 
+                required 
+              />
+            </div>
+          </div>
+
+          <div className="card-footer">
+            <input type="submit" value="Submit" className="btn btn-primary" />
           </div>
         </div>
-
-        <div className="card-footer">
-          <input type="submit" value="Submit" className="btn btn-primary" />
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   )
 };
 

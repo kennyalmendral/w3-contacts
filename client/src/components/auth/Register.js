@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet';
+
 import AlertContext from '../../context/alert/AlertContext';
 
 import { useAuth, clearErrors, register } from '../../context/auth/AuthState';
@@ -57,77 +59,83 @@ const Register = props => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="auth-form">
-      <div className="card">
-        <div className="card-header">
-          <h5 className="mb-0 text-secondary">Create an account</h5>
+    <>
+      <Helmet>
+        <title>Create an account | W3Contacts</title>
+      </Helmet>
+
+      <form onSubmit={onSubmit} className="auth-form">
+        <div className="card">
+          <div className="card-header">
+            <h5 className="mb-0 text-secondary">Create an account</h5>
+          </div>
+
+          <div className="card-body">
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">Name</label>
+
+              <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                className="form-control" 
+                value={name} 
+                onChange={onChange} 
+                required 
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email address</label>
+
+              <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                className="form-control" 
+                value={email} 
+                onChange={onChange} 
+                required 
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">Password</label>
+
+              <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                className="form-control" 
+                value={password} 
+                onChange={onChange} 
+                minLength="6" 
+                required 
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="password-confirmation" className="form-label">Password confirmation</label>
+
+              <input 
+                type="password" 
+                name="password_confirmation" 
+                id="password-confirmation" 
+                className="form-control" 
+                value={password_confirmation} 
+                onChange={onChange} 
+                minLength="6" 
+                required 
+              />
+            </div>
+          </div>
+
+          <div className="card-footer">
+            <input type="submit" value="Submit" className="btn btn-primary" />
+          </div>
         </div>
-
-        <div className="card-body">
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">Name</label>
-
-            <input 
-              type="text" 
-              name="name" 
-              id="name" 
-              className="form-control" 
-              value={name} 
-              onChange={onChange} 
-              required 
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email address</label>
-
-            <input 
-              type="email" 
-              name="email" 
-              id="email" 
-              className="form-control" 
-              value={email} 
-              onChange={onChange} 
-              required 
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-
-            <input 
-              type="password" 
-              name="password" 
-              id="password" 
-              className="form-control" 
-              value={password} 
-              onChange={onChange} 
-              minLength="6" 
-              required 
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password-confirmation" className="form-label">Password confirmation</label>
-
-            <input 
-              type="password" 
-              name="password_confirmation" 
-              id="password-confirmation" 
-              className="form-control" 
-              value={password_confirmation} 
-              onChange={onChange} 
-              minLength="6" 
-              required 
-            />
-          </div>
-        </div>
-
-        <div className="card-footer">
-          <input type="submit" value="Submit" className="btn btn-primary" />
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   )
 };
 
