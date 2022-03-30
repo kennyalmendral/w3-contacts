@@ -46,7 +46,7 @@ const Navbar = ({ title, icon }) => {
               <h1 className="h3 mb-0 d-flex"><img src={logo} alt={title} height={30} />{' '}<span className="ps-2">{title}</span></h1>
             </a>
 
-            <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+            <ul className="nav col-12 col-lg-auto mt-2 mb-0 justify-content-center my-md-0 text-small">
               {isAuthenticated ? authLinks : guestLinks}
             </ul>
           </div>
